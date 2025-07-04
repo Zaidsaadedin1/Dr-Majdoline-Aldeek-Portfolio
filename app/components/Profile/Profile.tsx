@@ -12,6 +12,7 @@ import {
   TableScrollContainer,
   Select,
   LoadingOverlay,
+  Badge,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { z } from "zod";
@@ -26,26 +27,28 @@ import {
   IconCheck,
   IconX,
 } from "@tabler/icons-react";
-import orderController from "../../Apis/controllers/orderControllers";
-import { GetOrderDto } from "../../Apis/types/orderDtos/orderDtos";
+import { appointmentController } from "../../Apis/controllers/appointmentControllers";
 import { notifications } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
 import userController from "../../Apis/controllers/userController";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { GetAppointmentDto } from "../../Apis/types/orderDtos/appointmentDtos";
 
 const Profile = ({ user }: { user: GetUserDto }) => {
   const { t, i18n } = useTranslation("profile");
   const router = useRouter();
   const currentLang = router.locale;
   const isRTL = currentLang === "ar";
-  const [userOrders, setUserOrders] = useState<GetOrderDto[]>([]);
+  const [userOrders, setUserOrders] = useState<GetAppointmentDto[]>([]);
   console.log("Current locale:", i18n.language);
   console.log("Loaded namespaces:", i18n.options.ns);
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const res = await orderController.GetAllUserOrdersAsync(user.id);
+        const res = await appointmentController.GetAllUserAppointmentsAsync(
+          user.id
+        );
         if (res) {
           setUserOrders(res);
         } else {
@@ -334,7 +337,7 @@ const Profile = ({ user }: { user: GetUserDto }) => {
 
           <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Title order={2} mb="md">
-              {t("requests.title")}
+              {t("appointments.title")}
             </Title>
             <TableScrollContainer minWidth={400}>
               <Table verticalSpacing="xl" striped highlightOnHover>
@@ -368,86 +371,88 @@ const Profile = ({ user }: { user: GetUserDto }) => {
                     <Table.Th
                       style={{ whiteSpace: "nowrap", paddingRight: 16 }}
                     >
-                      {t("table.companyName")}
-                    </Table.Th>
-                    <Table.Th
-                      style={{ whiteSpace: "nowrap", paddingRight: 16 }}
-                    >
-                      {t("table.projectType")}
-                    </Table.Th>
-                    <Table.Th
-                      style={{ whiteSpace: "nowrap", paddingRight: 16 }}
-                    >
                       {t("table.serviceType")}
                     </Table.Th>
                     <Table.Th
                       style={{ whiteSpace: "nowrap", paddingRight: 16 }}
                     >
-                      {t("table.budget")}
+                      {t("table.preferredDate")}
                     </Table.Th>
                     <Table.Th
                       style={{ whiteSpace: "nowrap", paddingRight: 16 }}
                     >
-                      {t("table.timeline")}
+                      {t("table.preferredTime")}
                     </Table.Th>
                     <Table.Th
                       style={{ whiteSpace: "nowrap", paddingRight: 16 }}
                     >
-                      {t("table.projectDescription")}
+                      {t("table.concerns")}
                     </Table.Th>
                     <Table.Th
                       style={{ whiteSpace: "nowrap", paddingRight: 16 }}
                     >
-                      {t("table.additionalRequirements")}
+                      {t("table.status")}
                     </Table.Th>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
                   {userOrders.length > 0 ? (
-                    userOrders.map((order) => (
-                      <Table.Tr key={order.id}>
+                    userOrders.map((appointment) => (
+                      <Table.Tr key={appointment.id}>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.id}
+                          {appointment.id}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.firstName}
+                          {appointment.firstName}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.lastName}
+                          {appointment.lastName}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.email}
+                          {appointment.email}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.phone}
+                          {appointment.phone}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.companyName ?? "-"}
+                          {appointment.serviceType}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.projectType}
+                          {new Date(
+                            appointment.preferredDate
+                          ).toLocaleDateString()}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.serviceType}
+                          {appointment.preferredTime}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.budget} JOD
+                          {appointment.concerns}
                         </Table.Td>
                         <Table.Td style={{ paddingRight: 16 }}>
-                          {order.timeline}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {order.projectDescription}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {order.additionalRequirements ?? "-"}
+                          {appointment.status ? (
+                            <Badge
+                              color={
+                                appointment.status === "confirmed"
+                                  ? "green"
+                                  : appointment.status === "completed"
+                                  ? "blue"
+                                  : appointment.status === "cancelled"
+                                  ? "red"
+                                  : "yellow"
+                              }
+                            >
+                              {t(`status.${appointment.status}`)}
+                            </Badge>
+                          ) : (
+                            "-"
+                          )}
                         </Table.Td>
                       </Table.Tr>
                     ))
                   ) : (
                     <Table.Tr>
-                      <Table.Td colSpan={14} style={{ textAlign: "center" }}>
-                        {t("table.no_orders")}
+                      <Table.Td colSpan={10} style={{ textAlign: "center" }}>
+                        {t("table.no_appointments")}
                       </Table.Td>
                     </Table.Tr>
                   )}
