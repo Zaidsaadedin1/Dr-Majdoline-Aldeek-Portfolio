@@ -18,23 +18,12 @@ import {
   Accordion,
   SimpleGrid,
   Modal,
-  Avatar,
-  Overlay,
 } from "@mantine/core";
 import {
-  IconUsers,
   IconHeart,
   IconCalendar,
   IconMail,
-  IconStethoscope,
-  IconMessageCircle,
-  IconVideo,
-  IconDeviceMobile,
-  IconShield,
   IconClock,
-  IconTrophy,
-  IconBrain,
-  IconHeartHandshake,
   IconUserCheck,
   IconChevronRight,
   IconChevronLeft,
@@ -42,8 +31,13 @@ import {
   IconArrowRight,
   IconArrowLeft,
   IconSun,
-  IconFlower,
   IconPlayCard,
+  IconDental,
+  IconFaceId,
+  IconFileSmileFilled,
+  IconMoodSmile,
+  IconMedicalCross,
+  IconMassage,
 } from "@tabler/icons-react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
@@ -59,10 +53,11 @@ export const HomePage = () => {
   const isRTL = i18n.language === "ar";
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const currentLang = i18n.language;
+
   // Statistics counter animation
   const [stats, setStats] = useState({
     clients: 0,
-    sessions: 0,
+    procedures: 0,
     satisfaction: 0,
     years: 0,
   });
@@ -96,10 +91,10 @@ export const HomePage = () => {
 
   useEffect(() => {
     const targetStats = {
-      clients: 2500,
-      sessions: 15000,
-      satisfaction: 98,
-      years: 12,
+      clients: 3200,
+      procedures: 8500,
+      satisfaction: 99,
+      years: 8,
     };
 
     const duration = 2000;
@@ -113,7 +108,7 @@ export const HomePage = () => {
 
       setStats({
         clients: Math.floor(targetStats.clients * progress),
-        sessions: Math.floor(targetStats.sessions * progress),
+        procedures: Math.floor(targetStats.procedures * progress),
         satisfaction: Math.floor(targetStats.satisfaction * progress),
         years: Math.floor(targetStats.years * progress),
       });
@@ -127,16 +122,6 @@ export const HomePage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // RTL Helper Functions
-  const getTextAlignment = (align: "left" | "right" | "center" = "left") => {
-    if (align === "center") return "center";
-    return isRTL ? (align === "left" ? "right" : "left") : align;
-  };
-
-  const getFlexDirection = (base: "row" | "row-reverse" = "row") => {
-    return isRTL ? (base === "row" ? "row-reverse" : "row") : base;
-  };
-
   const getChevronIcon = () => {
     return isRTL ? (
       <IconChevronLeft size={16} />
@@ -149,59 +134,41 @@ export const HomePage = () => {
     return isRTL ? <IconArrowLeft size={20} /> : <IconArrowRight size={20} />;
   };
 
-  const heroFeatures = [
-    {
-      icon: IconBrain,
-      title: t("hero_feature_1_title"),
-      description: t("hero_feature_1_desc"),
-    },
-    {
-      icon: IconHeartHandshake,
-      title: t("hero_feature_2_title"),
-      description: t("hero_feature_2_desc"),
-    },
-    {
-      icon: IconShield,
-      title: t("hero_feature_3_title"),
-      description: t("hero_feature_3_desc"),
-    },
-  ];
-
   const services = [
     {
-      icon: IconStethoscope,
+      icon: IconDental,
       title: t("service_1_title"),
       description: t("service_1_description"),
-      color: "pink",
+      color: "teal",
       price: t("service_1_price"),
       duration: t("service_1_duration"),
     },
     {
-      icon: IconUsers,
+      icon: IconFileSmileFilled,
       title: t("service_2_title"),
       description: t("service_2_description"),
-      color: "purple",
+      color: "pink",
       price: t("service_2_price"),
       duration: t("service_2_duration"),
     },
     {
-      icon: IconMessageCircle,
+      icon: IconMassage,
       title: t("service_3_title"),
       description: t("service_3_description"),
-      color: "blue",
+      color: "violet",
       price: t("service_3_price"),
       duration: t("service_3_duration"),
     },
     {
-      icon: IconVideo,
+      icon: IconMedicalCross,
       title: t("service_4_title"),
       description: t("service_4_description"),
-      color: "green",
+      color: "blue",
       price: t("service_4_price"),
       duration: t("service_4_duration"),
     },
     {
-      icon: IconDeviceMobile,
+      icon: IconFaceId,
       title: t("service_5_title"),
       description: t("service_5_description"),
       color: "orange",
@@ -228,7 +195,7 @@ export const HomePage = () => {
       category: t("blog_1_category"),
       onClick: () =>
         router.push(
-          `https://www.integratedmha.com/post/5-signs-you-might-benefit-from-therapy`
+          `https://www.hodgesortho.com/blog/2023/08/05/5-signs-you-need-professional-215382/`
         ),
     },
     {
@@ -239,7 +206,9 @@ export const HomePage = () => {
       image: "images/blog2.jpg",
       category: t("blog_2_category"),
       onClick: () =>
-        router.push(`https://www.apa.org/topics/stress/uncertainty`),
+        router.push(
+          `https://whiterockderm.com/the-science-behind-botox-how-it-works-and-why-its-effective/`
+        ),
     },
     {
       title: t("blog_3_title"),
@@ -250,25 +219,8 @@ export const HomePage = () => {
       category: t("blog_3_category"),
       onClick: () =>
         router.push(
-          `https://www.betterhealth.vic.gov.au/health/healthyliving/relationships-and-communication`
+          `https://www.argylefamilydental.com/top-6-healthy-habits-for-healthy-teeth/`
         ),
-    },
-  ];
-
-  const teamMembers = [
-    {
-      name: t("team_2_name"),
-      role: t("team_1_role"),
-      bio: t("team_1_bio"),
-      image: "/images/Doctor Omar Asad.jpg",
-      specialties: [t("team_1_specialty_1"), t("team_1_specialty_2")],
-    },
-    {
-      name: t("team_1_name"),
-      role: t("team_2_role"),
-      bio: t("team_2_bio"),
-      image: "/images/dr.omar_fauri.jpg",
-      specialties: [t("team_2_specialty_1"), t("team_2_specialty_2")],
     },
   ];
 
@@ -307,12 +259,12 @@ export const HomePage = () => {
       description: t("process_2_desc"),
     },
     {
-      icon: IconStethoscope,
+      icon: IconDental,
       title: t("process_3_title"),
       description: t("process_3_desc"),
     },
     {
-      icon: IconTrophy,
+      icon: IconMoodSmile,
       title: t("process_4_title"),
       description: t("process_4_desc"),
     },
@@ -361,136 +313,69 @@ export const HomePage = () => {
             </Text>
           </div>
         </video>
-        <Overlay
-          gradient="linear-gradient(145deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 100%)"
-          opacity={0.6}
-          zIndex={1}
-        />
-        <Box
+
+        <Stack
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.4)",
-            zIndex: 1,
+            position: "relative",
+            zIndex: 2,
           }}
-        />
-        <Container
-          p={"lg"}
-          size="xl"
-          style={{ position: "relative", zIndex: 2 }}
+          dir={isRTL ? "rtl" : "ltr"}
+          justify="center"
+          mt={"20%"}
+          p={"xl"}
         >
-          <Stack
-            align="center"
-            justify="center"
-            style={{ minHeight: "80vh", textAlign: "center" }}
+          <Group mb="xl">
+            <ThemeIcon size={80} radius="xl" variant="white">
+              <IconDental size={40} />
+            </ThemeIcon>
+          </Group>
+
+          <Title
+            dir={isRTL ? "rtl" : "ltr"}
+            order={1}
+            size={60}
+            fw={900}
+            c="white"
+            mb="md"
           >
-            <Group mb="xl">
-              <ThemeIcon size={80} radius="xl" variant="white" color="pink">
-                <IconFlower size={40} />
-              </ThemeIcon>
-            </Group>
+            {t("hero_title")}
+          </Title>
 
-            <Title
-              order={1}
-              size={60}
-              fw={900}
-              c="white"
-              mb="md"
-              style={{
-                maxWidth: "800px",
-                fontSize: "3rem", // Suitable for phones
-                padding: "8px 14px",
-              }}
+          <Text
+            dir={isRTL ? "rtl" : "ltr"}
+            size="xl"
+            c="white"
+            mb="xl"
+            maw={600}
+          >
+            {t("hero_subtitle")}
+          </Text>
+
+          <Group gap="lg" mb={60} dir={isRTL ? "rtl" : "ltr"}>
+            <Button
+              size="xl"
+              variant="white"
+              leftSection={<IconCalendar size={24} />}
+              onClick={() => router.push(`/${currentLang}/consultation`)}
             >
-              {t("hero_title")}
-            </Title>
-
-            <Text size="xl" c="white" mb="xl" style={{ maxWidth: "600px" }}>
-              {t("hero_subtitle")}
-            </Text>
-
-            <Group
-              gap="lg"
-              mb={60}
-              style={{ flexDirection: getFlexDirection() }}
+              {t("book_consultation")}
+            </Button>
+            <Button
+              size="xl"
+              variant="outline"
+              color="white"
+              leftSection={<IconPlayCard size={24} />}
             >
-              <Button
-                size="xl"
-                variant="white"
-                color="pink"
-                leftSection={<IconCalendar size={24} />}
-                onClick={() => router.push(`/${currentLang}/consultation`)}
-                style={{
-                  fontSize: "18px",
-                  padding: "16px 32px",
-                  borderRadius: "50px",
-                }}
-              >
-                {t("book_consultation")}
-              </Button>
-              <Button
-                size="xl"
-                variant="outline"
-                color="white"
-                leftSection={<IconPlayCard size={24} />}
-                style={{
-                  fontSize: "18px",
-                  padding: "16px 32px",
-                  borderRadius: "50px",
-                }}
-              >
-                {t("watch_intro")}
-              </Button>
-            </Group>
-
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl">
-              {heroFeatures.map((feature, index) => (
-                <Paper
-                  key={index}
-                  p="xl"
-                  radius="xl"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.95)",
-                    backdropFilter: "blur(10px)",
-                    textAlign: getTextAlignment("left"),
-                  }}
-                >
-                  <ThemeIcon
-                    size={50}
-                    radius="xl"
-                    variant="light"
-                    color="pink"
-                    mb="md"
-                  >
-                    <feature.icon size={24} />
-                  </ThemeIcon>
-                  <Title order={4} mb="xs">
-                    {feature.title}
-                  </Title>
-                  <Text size="sm" c="dimmed">
-                    {feature.description}
-                  </Text>
-                </Paper>
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Container>
+              {t("watch_intro")}
+            </Button>
+          </Group>
+        </Stack>
       </Box>
 
-      <Container size="xl" py={80}>
-        <Paper
-          p={60}
-          radius="xl"
-          style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            color: "white",
-            marginBottom: "80px",
-          }}
-        >
-          <Title order={2} ta="center" mb={50} c="white">
+      {/* Stats Section */}
+      <Container size="xl" py={80} dir={isRTL ? "rtl" : "ltr"}>
+        <Paper p={60} radius="xl" mb={80}>
+          <Title order={2} ta="center" mb={50}>
             {t("stats_title")}
           </Title>
           <SimpleGrid cols={{ base: 1, md: 4 }} spacing="xl">
@@ -498,23 +383,23 @@ export const HomePage = () => {
               <Title order={1} size={50} fw={900} mb="xs">
                 {stats.clients.toLocaleString()}+
               </Title>
-              <Text size="lg" opacity={0.9}>
+              <Text size="lg" c="dimmed">
                 {t("stats_clients")}
               </Text>
             </Box>
             <Box ta="center">
               <Title order={1} size={50} fw={900} mb="xs">
-                {stats.sessions.toLocaleString()}+
+                {stats.procedures.toLocaleString()}+
               </Title>
-              <Text size="lg" opacity={0.9}>
-                {t("stats_sessions")}
+              <Text size="lg" c="dimmed">
+                {t("stats_procedures")}
               </Text>
             </Box>
             <Box ta="center">
               <Title order={1} size={50} fw={900} mb="xs">
                 {stats.satisfaction}%
               </Title>
-              <Text size="lg" opacity={0.9}>
+              <Text size="lg" c="dimmed">
                 {t("stats_satisfaction")}
               </Text>
             </Box>
@@ -522,7 +407,7 @@ export const HomePage = () => {
               <Title order={1} size={50} fw={900} mb="xs">
                 {stats.years}+
               </Title>
-              <Text size="lg" opacity={0.9}>
+              <Text size="lg" c="dimmed">
                 {t("stats_experience")}
               </Text>
             </Box>
@@ -538,35 +423,24 @@ export const HomePage = () => {
             <Image
               src="/images/about_image.jpg"
               alt="about image"
-              style={{ cursor: "pointer" }}
               onClick={() => router.push(`/${currentLang}/about`)}
-              w={"70%"}
+              style={{ cursor: "pointer" }}
             />
           </Grid.Col>
           <Grid.Col
             span={{ base: 12, md: 6 }}
             order={{ base: 2, md: isRTL ? 1 : 2 }}
           >
-            <Badge size="lg" variant="light" color="pink" mb="md">
+            <Badge size="lg" variant="light" mb="md">
               {t("about_badge")}
             </Badge>
-            <Title order={2} size={40} mb="lg" c="pink">
+            <Title order={2} size={40} mb="lg">
               {t("about_title")}
             </Title>
-            <Text
-              size="lg"
-              mb="xl"
-              c="dimmed"
-              style={{ lineHeight: 1.8, textAlign: getTextAlignment("left") }}
-            >
+            <Text size="lg" mb="xl" c="dimmed" style={{ lineHeight: 1.8 }}>
               {t("about_description")}
             </Text>
-            <List
-              spacing="md"
-              size="lg"
-              icon={<IconCheck size={20} color="green" />}
-              mb="xl"
-            >
+            <List spacing="md" size="lg" icon={<IconCheck size={20} />} mb="xl">
               <List.Item>{t("about_point_1")}</List.Item>
               <List.Item>{t("about_point_2")}</List.Item>
               <List.Item>{t("about_point_3")}</List.Item>
@@ -574,8 +448,7 @@ export const HomePage = () => {
             </List>
             <Button
               size="lg"
-              variant="gradient"
-              gradient={{ from: "pink", to: "purple" }}
+              variant="outline"
               rightSection={getArrowIcon()}
               onClick={() => router.push(`/${currentLang}/about`)}
             >
@@ -587,10 +460,10 @@ export const HomePage = () => {
         {/* Services Section */}
         <Box mb={80}>
           <Box ta="center" mb={60}>
-            <Badge size="xl" variant="light" color="purple" mb="md">
+            <Badge size="xl" variant="light" mb="md">
               {t("services_badge")}
             </Badge>
-            <Title order={2} size={40} mb="lg" c="purple">
+            <Title order={2} size={40} mb="lg">
               {t("services_title")}
             </Title>
             <Text size="xl" c="dimmed" maw={700} mx="auto">
@@ -602,40 +475,19 @@ export const HomePage = () => {
             {services.map((service, index) => (
               <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>
                 <Card
-                  shadow="lg"
-                  radius="xl"
+                  shadow="sm"
+                  radius="md"
                   p="xl"
                   h="100%"
-                  style={{
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                    border: "2px solid transparent",
-                    textAlign: getTextAlignment("left"),
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "translateY(-10px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 20px 40px rgba(0,0,0,0.1)";
-                    e.currentTarget.style.borderColor = `var(--mantine-color-${service.color}-4)`;
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "";
-                    e.currentTarget.style.borderColor = "transparent";
-                  }}
+                  style={{ cursor: "pointer" }}
                   onClick={() => router.push(`/${currentLang}/consultation`)}
                 >
                   <Group
                     justify="space-between"
                     mb="md"
-                    style={{ flexDirection: getFlexDirection() }}
+                    dir={isRTL ? "rtl" : "ltr"}
                   >
-                    <ThemeIcon
-                      size={60}
-                      radius="xl"
-                      variant="light"
-                      color={service.color}
-                    >
+                    <ThemeIcon size={60} radius="xl" variant="light">
                       <service.icon size={30} />
                     </ThemeIcon>
                   </Group>
@@ -651,21 +503,20 @@ export const HomePage = () => {
                   <Group
                     justify="space-between"
                     align="center"
-                    style={{ flexDirection: getFlexDirection() }}
+                    dir={isRTL ? "rtl" : "ltr"}
                   >
                     <Text size="sm" c="dimmed">
                       <IconClock
                         size={16}
                         style={{
-                          marginRight: "5px",
+                          marginRight: isRTL ? 0 : "5px",
                           marginLeft: isRTL ? "5px" : 0,
                         }}
                       />
                       {service.duration}
                     </Text>
                     <Button
-                      variant="light"
-                      color={service.color}
+                      variant="subtle"
                       size="sm"
                       rightSection={getChevronIcon()}
                     >
@@ -679,12 +530,12 @@ export const HomePage = () => {
         </Box>
 
         {/* Process Section */}
-        <Paper p={60} radius="xl" bg="gray.0" mb={80}>
+        <Paper p={60} radius="md" mb={80}>
           <Box ta="center" mb={60}>
-            <Badge size="xl" variant="light" color="blue" mb="md">
+            <Badge size="xl" variant="light" mb="md">
               {t("process_badge")}
             </Badge>
-            <Title order={2} size={40} mb="lg" c="blue">
+            <Title order={2} size={40} mb="lg">
               {t("process_title")}
             </Title>
             <Text size="xl" c="dimmed" maw={700} mx="auto">
@@ -692,17 +543,12 @@ export const HomePage = () => {
             </Text>
           </Box>
 
-          <Timeline active={3} bulletSize={60} lineWidth={4} color="blue">
+          <Timeline active={3} bulletSize={60} lineWidth={4}>
             {processSteps.map((step, index) => (
               <Timeline.Item
                 key={index}
                 bullet={
-                  <ThemeIcon
-                    size={60}
-                    radius="xl"
-                    variant="filled"
-                    color="blue"
-                  >
+                  <ThemeIcon size={60} radius="xl" variant="filled">
                     <step.icon size={24} />
                   </ThemeIcon>
                 }
@@ -712,12 +558,7 @@ export const HomePage = () => {
                   </Title>
                 }
               >
-                <Text
-                  size="lg"
-                  c="dimmed"
-                  mb="xl"
-                  style={{ textAlign: getTextAlignment("left") }}
-                >
+                <Text size="lg" c="dimmed" mb="xl">
                   {step.description}
                 </Text>
               </Timeline.Item>
@@ -725,60 +566,13 @@ export const HomePage = () => {
           </Timeline>
         </Paper>
 
-        {/* Team Section */}
-        <Box mb={80}>
-          <Box ta="center" mb={60}>
-            <Badge size="xl" variant="light" color="green" mb="md">
-              {t("team_badge")}
-            </Badge>
-            <Title order={2} size={40} mb="lg" c="green">
-              {t("team_title")}
-            </Title>
-            <Text size="xl" c="dimmed" maw={700} mx="auto">
-              {t("team_subtitle")}
-            </Text>
-          </Box>
-
-          <Grid justify="space-between" align="stretch">
-            {teamMembers.map((member, index) => (
-              <Grid.Col key={index} span={{ base: 12, md: 4 }}>
-                <Card shadow="lg" radius="xl" p="xl" ta="center">
-                  <Avatar
-                    src={member.image}
-                    size={120}
-                    radius="xl"
-                    mx="auto"
-                    mb="lg"
-                  />
-                  <Title order={3} mb="xs">
-                    {member.name}
-                  </Title>
-                  <Text c="green" fw={500} mb="md">
-                    {member.role}
-                  </Text>
-                  <Text c="dimmed" mb="lg" style={{ lineHeight: 1.6 }}>
-                    {member.bio}
-                  </Text>
-                  <Group justify="center" gap="xs">
-                    {member.specialties.map((specialty, idx) => (
-                      <Badge key={idx} variant="light" color="green" size="sm">
-                        {specialty}
-                      </Badge>
-                    ))}
-                  </Group>
-                </Card>
-              </Grid.Col>
-            ))}
-          </Grid>
-        </Box>
-
         {/* Blog Section */}
         <Box mb={80}>
           <Box ta="center" mb={60}>
-            <Badge size="xl" variant="light" color="orange" mb="md">
+            <Badge size="xl" variant="light" mb="md">
               {t("blog_badge")}
             </Badge>
-            <Title order={2} size={40} mb="lg" c="orange">
+            <Title order={2} size={40} mb="lg">
               {t("blog_title")}
             </Title>
             <Text size="xl" c="dimmed" maw={700} mx="auto">
@@ -790,8 +584,8 @@ export const HomePage = () => {
             {blogPosts.map((post, index) => (
               <Grid.Col key={index} span={{ base: 12, md: 4 }}>
                 <Card
-                  shadow="lg"
-                  radius="xl"
+                  shadow="sm"
+                  radius="md"
                   p={0}
                   h="100%"
                   onClick={post.onClick}
@@ -801,41 +595,29 @@ export const HomePage = () => {
                     src={post.image}
                     height={200}
                     alt={post.title}
-                    radius="xl xl 0 0"
+                    radius="md md 0 0"
                   />
                   <Box p="xl">
                     <Group
                       justify="space-between"
                       mb="md"
-                      style={{ flexDirection: getFlexDirection() }}
+                      dir={isRTL ? "rtl" : "ltr"}
                     >
-                      <Badge variant="light" color="orange">
-                        {post.category}
-                      </Badge>
+                      <Badge variant="light">{post.category}</Badge>
                       <Text size="sm" c="dimmed">
                         {post.date}
                       </Text>
                     </Group>
-                    <Title
-                      order={4}
-                      mb="md"
-                      lineClamp={2}
-                      style={{ textAlign: getTextAlignment("left") }}
-                    >
+                    <Title order={4} mb="md" lineClamp={2}>
                       {post.title}
                     </Title>
-                    <Text
-                      c="dimmed"
-                      mb="lg"
-                      lineClamp={3}
-                      style={{ textAlign: getTextAlignment("left") }}
-                    >
+                    <Text c="dimmed" mb="lg" lineClamp={3}>
                       {post.excerpt}
                     </Text>
                     <Group
                       justify="space-between"
                       align="center"
-                      style={{ flexDirection: getFlexDirection() }}
+                      dir={isRTL ? "rtl" : "ltr"}
                     >
                       <Text size="sm" c="dimmed">
                         <IconClock
@@ -847,11 +629,7 @@ export const HomePage = () => {
                         />
                         {post.readTime}
                       </Text>
-                      <Button
-                        variant="subtle"
-                        color="orange"
-                        rightSection={getArrowIcon()}
-                      >
+                      <Button variant="subtle" rightSection={getArrowIcon()}>
                         {t("read_more")}
                       </Button>
                     </Group>
@@ -865,10 +643,10 @@ export const HomePage = () => {
         {/* FAQ Section */}
         <Box mb={80}>
           <Box ta="center" mb={60}>
-            <Badge size="xl" variant="light" color="red" mb="md">
+            <Badge size="xl" variant="light" mb="md">
               {t("faq_badge")}
             </Badge>
-            <Title order={2} size={40} mb="lg" c="red">
+            <Title order={2} size={40} mb="lg">
               {t("faq_title")}
             </Title>
             <Text size="xl" c="dimmed" maw={700} mx="auto">
@@ -876,29 +654,7 @@ export const HomePage = () => {
             </Text>
           </Box>
 
-          <Accordion
-            variant="separated"
-            radius="xl"
-            defaultValue="0"
-            styles={{
-              item: {
-                border: "2px solid #f1f3f4",
-                marginBottom: "16px",
-              },
-              control: {
-                padding: "24px",
-                fontSize: "18px",
-                fontWeight: 600,
-                textAlign: getTextAlignment("left"),
-              },
-              content: {
-                padding: "0 24px 24px 24px",
-                fontSize: "16px",
-                lineHeight: 1.6,
-                textAlign: getTextAlignment("left"),
-              },
-            }}
-          >
+          <Accordion variant="separated" radius="md" defaultValue="0">
             {faqs.map((faq, index) => (
               <Accordion.Item key={index} value={index.toString()}>
                 <Accordion.Control>{faq.question}</Accordion.Control>
@@ -911,47 +667,28 @@ export const HomePage = () => {
         </Box>
 
         {/* Newsletter Section */}
-        <Paper
-          p={60}
-          radius="xl"
-          style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            color: "white",
-            marginBottom: "80px",
-            textAlign: "center",
-          }}
-        >
-          <ThemeIcon
-            size={80}
-            radius="xl"
-            variant="white"
-            color="violet"
-            mb="xl"
-            mx="auto"
-          >
+        <Paper p={60} radius="md" mb={80}>
+          <ThemeIcon size={80} radius="xl" variant="light" mb="xl" mx="auto">
             <IconMail size={40} />
           </ThemeIcon>
-          <Title order={2} size={40} mb="lg">
+          <Title order={2} size={40} mb="lg" ta="center">
             {t("newsletter_title")}
           </Title>
-          <Text size="xl" mb="xl" maw={600} mx="auto" opacity={0.9}>
+          <Text size="xl" mb="xl" maw={600} mx="auto" c="dimmed">
             {t("newsletter_subtitle")}
           </Text>
 
           <Button
             size="lg"
-            variant="white"
-            color="violet"
-            radius="xl"
+            variant="outline"
+            radius="md"
             onClick={() =>
               router.push(
-                `https://www.instagram.com/channel/AbaO8zprAXQaS-8h/?igsh=MXM2NW9tNTNlejJm`
+                `https://www.instagram.com/dr.majdoline_aldeek?utm_source=ig_web_button_share_sheet&igsh=MWxtYWF5MTI2amhqag==`
               )
             }
-            style={{
-              padding: "16px 32px",
-              fontSize: "16px",
-            }}
+            mx="auto"
+            display="block"
           >
             {t("subscribe")}
           </Button>
@@ -962,47 +699,23 @@ export const HomePage = () => {
       </Container>
 
       {/* Final CTA Section */}
-      <Box
-        style={{
-          background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-          color: "white",
-          padding: "80px 0",
-          textAlign: "center",
-        }}
-      >
+      <Box py={80}>
         <Container size="md">
-          <ThemeIcon
-            size={100}
-            radius="xl"
-            variant="white"
-            color="pink"
-            mb="xl"
-            mx="auto"
-          >
+          <ThemeIcon size={100} radius="xl" variant="light" mb="xl" mx="auto">
             <IconSun size={50} />
           </ThemeIcon>
-          <Title order={1} size={50} fw={900} mb="lg">
+          <Title order={1} size={50} fw={900} mb="lg" ta="center">
             {t("final_cta_title")}
           </Title>
-          <Text size="xl" mb="xl" maw={600} mx="auto" opacity={0.9}>
+          <Text size="xl" mb="xl" maw={600} mx="auto" c="dimmed" ta="center">
             {t("final_cta_subtitle")}
           </Text>
-          <Group
-            justify="center"
-            gap="lg"
-            style={{ flexDirection: getFlexDirection("row") }}
-          >
+          <Group justify="center" gap="lg" dir={isRTL ? "rtl" : "ltr"}>
             <Button
               size="xl"
-              variant="white"
-              color="pink"
+              variant="filled"
               leftSection={<IconCalendar size={24} />}
-              onClick={() => router.push(`/${currentLang}/consultation`)}
-              style={{
-                fontSize: "18px",
-                padding: "20px 40px",
-                borderRadius: "50px",
-              }}
+              onClick={() => router.push(`/${currentLang}/appointments`)}
             >
               {t("start_journey")}
             </Button>
@@ -1017,7 +730,7 @@ export const HomePage = () => {
         onClose={() => setShowSuccessModal(false)}
         title={t("success_modal_title")}
         centered
-        radius="lg"
+        radius="md"
       >
         <Stack align="center" gap="md">
           <ThemeIcon size={60} radius="xl" color="green">
@@ -1026,11 +739,7 @@ export const HomePage = () => {
           <Text ta="center" size="lg">
             {t("success_modal_message")}
           </Text>
-          <Button
-            onClick={() => setShowSuccessModal(false)}
-            variant="light"
-            color="green"
-          >
+          <Button onClick={() => setShowSuccessModal(false)} variant="light">
             {t("success_modal_button")}
           </Button>
         </Stack>

@@ -10,6 +10,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         "services",
         "menuComponent",
         "footer",
+        "home",
       ])),
     },
   };

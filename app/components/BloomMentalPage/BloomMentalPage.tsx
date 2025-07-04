@@ -40,7 +40,7 @@ const BloomMentalPage = () => {
   const { t, i18n } = useTranslation("bloomMental");
   const router = useRouter();
   const isRTL = i18n.language === "ar";
-
+  const currentLang = i18n.language;
   const services = [
     {
       icon: IconStethoscope,
@@ -159,7 +159,7 @@ const BloomMentalPage = () => {
               variant="white"
               color="pink"
               leftSection={<IconCalendar size={20} />}
-              onClick={() => router.push("/book-appointment")}
+              onClick={() => router.push(`/${currentLang}/consultation`)}
             >
               {t("book_appointment")}
             </Button>

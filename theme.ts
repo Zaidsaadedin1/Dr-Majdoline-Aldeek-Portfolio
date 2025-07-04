@@ -5,7 +5,26 @@ export const theme: MantineThemeOverride = {
   fontFamily: "var(--open-sans-font), sans-serif",
   headings: {
     fontFamily: "'Playfair Display', serif",
-    fontWeight: 600,
+  },
+  components: {
+    Menu: {
+      styles: (theme: {
+        colors: { [x: string]: any[]; gray: any[] };
+        primaryColor: string | number;
+        black: any;
+        fontSizes: { sm: any };
+      }) => ({
+        item: {
+          fontFamily: "Oswald, sans-serif",
+          color: theme.colors[theme.primaryColor]?.[7] ?? "#50becc",
+          fontSize: theme.fontSizes.sm,
+          "&:hover": {
+            backgroundColor:
+              theme.colors[theme.primaryColor]?.[0] ?? theme.colors.gray[0],
+          },
+        },
+      }),
+    },
   },
   colors: {
     brand: [
@@ -15,7 +34,7 @@ export const theme: MantineThemeOverride = {
       "#a8ccf1",
       "#87b8eb",
       "#5da3e4",
-      "#3d8edc",
+      "#50becc",
       "#2a73c3",
       "#205a9e",
       "#1a4577",

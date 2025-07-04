@@ -6,8 +6,10 @@ import { useTranslation } from "next-i18next";
 export default function CallNowButton() {
   const [opened, setOpened] = useState(false);
   const [copied, setCopied] = useState(false);
-  const phoneNumber = "+1 (555) 123-4567"; // Replace with the actual doctor phone number
-  const { t } = useTranslation("home");
+  const phoneNumber = "+970 592 599 015"; // Replace with the actual doctor phone number
+  const { t, i18n } = useTranslation("home");
+  const currentLang = i18n.language;
+  const isRTL = currentLang === "ar";
   const copyToClipboard = () => {
     navigator.clipboard.writeText(phoneNumber);
     setCopied(true);
@@ -19,7 +21,6 @@ export default function CallNowButton() {
       <Button
         size="xl"
         variant="outline"
-        color="white"
         leftSection={<IconPhone size={24} />}
         style={{
           fontSize: "18px",
@@ -36,6 +37,12 @@ export default function CallNowButton() {
         onClose={() => setOpened(false)}
         title={t("doctor_phone_number")}
         centered
+        transitionProps={{
+          transition: "fade",
+          duration: 600,
+          timingFunction: "linear",
+        }}
+        radius={"lg"}
       >
         <Text
           style={{
@@ -43,6 +50,7 @@ export default function CallNowButton() {
             fontWeight: "bold",
             cursor: "pointer",
             userSelect: "none",
+            textAlign: "left",
           }}
           onClick={copyToClipboard}
           aria-label="Copy phone number"
@@ -52,6 +60,8 @@ export default function CallNowButton() {
               copyToClipboard();
             }
           }}
+          color="#50becc"
+          dir="ltr"
         >
           {phoneNumber}
         </Text>
@@ -59,8 +69,7 @@ export default function CallNowButton() {
         {copied && (
           <Notification
             icon={<IconCheck size={16} />}
-            color="teal"
-            title="Copied"
+            title={t("Copied")}
             withCloseButton={false}
             style={{ marginTop: 20 }}
           >

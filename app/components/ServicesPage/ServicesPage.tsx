@@ -15,11 +15,10 @@ import {
   Divider,
 } from "@mantine/core";
 import {
-  IconStethoscope,
-  IconBrain,
-  IconShield,
-  IconUsers,
-  IconHeart,
+  IconDental,
+  IconFaceId,
+  IconLinkPlus,
+  IconMassage,
   IconClock,
   IconPhone,
   IconCalendar,
@@ -29,6 +28,7 @@ import {
 } from "@tabler/icons-react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import CallNowButton from "../../blocks/CallNowButton/CallNowButton";
 
 const ServicesPage = () => {
   const { t, i18n } = useTranslation("services");
@@ -38,103 +38,91 @@ const ServicesPage = () => {
 
   const services = [
     {
-      id: "psychiatric-consultation",
-      icon: IconStethoscope,
-      color: "blue",
-      title: t("psychiatric_consultation_title"),
-      description: t("psychiatric_consultation_description"),
+      id: "teeth-whitening",
+      icon: IconDental,
+      title: t("teeth_whitening_title"),
+      description: t("teeth_whitening_description"),
       features: [
-        t("psychiatric_consultation_feature_1"),
-        t("psychiatric_consultation_feature_2"),
-        t("psychiatric_consultation_feature_3"),
-        t("psychiatric_consultation_feature_4"),
+        t("teeth_whitening_feature_1"),
+        t("teeth_whitening_feature_2"),
+        t("teeth_whitening_feature_3"),
       ],
-      duration: t("psychiatric_consultation_duration"),
+      duration: t("teeth_whitening_duration"),
     },
     {
-      id: "addiction-treatment",
-      icon: IconShield,
-      color: "green",
-      title: t("addiction_treatment_title"),
-      description: t("addiction_treatment_description"),
+      id: "dental-botox",
+      icon: IconFaceId,
+      title: t("dental_botox_title"),
+      description: t("dental_botox_description"),
       features: [
-        t("addiction_treatment_feature_1"),
-        t("addiction_treatment_feature_2"),
-        t("addiction_treatment_feature_3"),
-        t("addiction_treatment_feature_4"),
+        t("dental_botox_feature_1"),
+        t("dental_botox_feature_2"),
+        t("dental_botox_feature_3"),
       ],
-      duration: t("addiction_treatment_duration"),
+      duration: t("dental_botox_duration"),
     },
     {
-      id: "family-therapy",
-      icon: IconUsers,
-      color: "orange",
-      title: t("family_therapy_title"),
-      description: t("family_therapy_description"),
+      id: "facial-fillers",
+      icon: IconLinkPlus,
+      title: t("facial_fillers_title"),
+      description: t("facial_fillers_description"),
       features: [
-        t("family_therapy_feature_1"),
-        t("family_therapy_feature_2"),
-        t("family_therapy_feature_3"),
-        t("family_therapy_feature_4"),
+        t("facial_fillers_feature_1"),
+        t("facial_fillers_feature_2"),
+        t("facial_fillers_feature_3"),
       ],
-      duration: t("family_therapy_duration"),
+      duration: t("facial_fillers_duration"),
     },
     {
-      id: "crisis-management",
-      icon: IconEmergencyBed,
-      color: "red",
-      title: t("crisis_management_title"),
-      description: t("crisis_management_description"),
+      id: "veneers",
+      icon: IconDental,
+      title: t("veneers_title"),
+      description: t("veneers_description"),
       features: [
-        t("crisis_management_feature_1"),
-        t("crisis_management_feature_2"),
-        t("crisis_management_feature_3"),
-        t("crisis_management_feature_4"),
+        t("veneers_feature_1"),
+        t("veneers_feature_2"),
+        t("veneers_feature_3"),
       ],
-      duration: t("crisis_management_duration"),
+      duration: t("veneers_duration"),
     },
     {
-      id: "cognitive-therapy",
-      icon: IconBrain,
-      color: "purple",
-      title: t("cognitive_therapy_title"),
-      description: t("cognitive_therapy_description"),
+      id: "laser-treatments",
+      icon: IconMassage,
+      title: t("laser_treatments_title"),
+      description: t("laser_treatments_description"),
       features: [
-        t("cognitive_therapy_feature_1"),
-        t("cognitive_therapy_feature_2"),
-        t("cognitive_therapy_feature_3"),
-        t("cognitive_therapy_feature_4"),
+        t("laser_treatments_feature_1"),
+        t("laser_treatments_feature_2"),
+        t("laser_treatments_feature_3"),
       ],
-      duration: t("cognitive_therapy_duration"),
+      duration: t("laser_treatments_duration"),
     },
     {
-      id: "group-therapy",
-      icon: IconUsers,
-      color: "teal",
-      title: t("group_therapy_title"),
-      description: t("group_therapy_description"),
+      id: "dental-implants",
+      icon: IconDental,
+      title: t("dental_implants_title"),
+      description: t("dental_implants_description"),
       features: [
-        t("group_therapy_feature_1"),
-        t("group_therapy_feature_2"),
-        t("group_therapy_feature_3"),
-        t("group_therapy_feature_4"),
+        t("dental_implants_feature_1"),
+        t("dental_implants_feature_2"),
+        t("dental_implants_feature_3"),
       ],
-      duration: t("group_therapy_duration"),
+      duration: t("dental_implants_duration"),
     },
   ];
 
   const emergencyServices = [
     {
       icon: IconEmergencyBed,
-      title: t("emergency_consultation"),
-      description: t("emergency_consultation_description"),
+      title: t("emergency_dental"),
+      description: t("emergency_dental_description"),
       contact: t("emergency_phone"),
     },
     {
       icon: IconPhone,
-      title: t("crisis_hotline"),
-      description: t("crisis_hotline_description"),
-      contact: t("crisis_hotline_number"),
+      title: t("after_hours"),
+      description: t("after_hours_description"),
+      contact: t("after_hours_number"),
     },
     {
       icon: IconHome,
@@ -148,12 +136,12 @@ const ServicesPage = () => {
     <div dir={isRTL ? "rtl" : "ltr"}>
       <Container size="lg" py="xl">
         {/* Header */}
-        <Paper p="xl" mb="xl" bg="gradient-to-r from-blue-50 to-blue-100">
+        <Paper p="xl" mb="xl" withBorder>
           <Stack align="center" gap="md">
-            <ThemeIcon size={60} variant="light" color="blue">
-              <IconStethoscope size={30} />
+            <ThemeIcon size={60} variant="light">
+              <IconDental size={30} />
             </ThemeIcon>
-            <Title order={1} ta="center" c="blue.8">
+            <Title order={1} ta="center">
               {t("page_title")}
             </Title>
             <Text size="lg" ta="center" c="dimmed" maw={600}>
@@ -165,7 +153,7 @@ const ServicesPage = () => {
         {/* Main Services */}
         <Stack gap="xl">
           <Box>
-            <Title order={2} mb="lg" c="dark" ta={isRTL ? "right" : "left"}>
+            <Title order={2} mb="lg" ta={isRTL ? "right" : "left"}>
               {t("main_services_title")}
             </Title>
             <Grid>
@@ -174,17 +162,11 @@ const ServicesPage = () => {
                   <Card p="lg" h="100%" shadow="sm" withBorder>
                     <Stack gap="md" h="100%">
                       <Group>
-                        <ThemeIcon
-                          size={40}
-                          variant="light"
-                          color={service.color}
-                        >
+                        <ThemeIcon size={40} variant="light">
                           <service.icon size={20} />
                         </ThemeIcon>
                         <Box flex={1}>
-                          <Title order={4} c={`${service.color}.8`}>
-                            {service.title}
-                          </Title>
+                          <Title order={4}>{service.title}</Title>
                         </Box>
                       </Group>
 
@@ -214,7 +196,6 @@ const ServicesPage = () => {
 
                       <Button
                         variant="light"
-                        color={service.color}
                         fullWidth
                         onClick={() =>
                           router.push(
@@ -236,12 +217,10 @@ const ServicesPage = () => {
           {/* Emergency Services */}
           <Box>
             <Group mb="lg">
-              <ThemeIcon size={32} variant="light" color="red">
+              <ThemeIcon size={32} variant="light">
                 <IconEmergencyBed size={18} />
               </ThemeIcon>
-              <Title order={2} c="red.8">
-                {t("emergency_services_title")}
-              </Title>
+              <Title order={2}>{t("emergency_services_title")}</Title>
             </Group>
 
             <Text size="md" mb="lg" c="dimmed" ta={isRTL ? "right" : "left"}>
@@ -251,19 +230,17 @@ const ServicesPage = () => {
             <Grid>
               {emergencyServices.map((service, index) => (
                 <Grid.Col key={index} span={{ base: 12, md: 4 }}>
-                  <Card p="md" bg="red.0" withBorder>
+                  <Card p="md" withBorder>
                     <Group mb="sm">
-                      <ThemeIcon size={32} variant="light" color="red">
+                      <ThemeIcon size={32} variant="light">
                         <service.icon size={16} />
                       </ThemeIcon>
-                      <Text fw={600} c="red.8">
-                        {service.title}
-                      </Text>
+                      <Text fw={600}>{service.title}</Text>
                     </Group>
                     <Text size="sm" c="dimmed" mb="sm">
                       {service.description}
                     </Text>
-                    <Text size="sm" fw={600} c="red.7">
+                    <Text size="sm" fw={600}>
                       {service.contact}
                     </Text>
                   </Card>
@@ -276,19 +253,13 @@ const ServicesPage = () => {
 
           {/* Service Process */}
           <Box>
-            <Title order={2} mb="lg" c="dark" ta={isRTL ? "right" : "left"}>
+            <Title order={2} mb="lg" ta={isRTL ? "right" : "left"}>
               {t("service_process_title")}
             </Title>
             <Grid>
               <Grid.Col span={{ base: 12, md: 3 }}>
-                <Card p="md" ta="center" bg="blue.0">
-                  <ThemeIcon
-                    size={40}
-                    variant="light"
-                    color="blue"
-                    mx="auto"
-                    mb="sm"
-                  >
+                <Card p="md" ta="center" withBorder>
+                  <ThemeIcon size={40} variant="light" mx="auto" mb="sm">
                     <IconCalendar size={20} />
                   </ThemeIcon>
                   <Text fw={600} mb="xs">
@@ -300,14 +271,8 @@ const ServicesPage = () => {
                 </Card>
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 3 }}>
-                <Card p="md" ta="center" bg="green.0">
-                  <ThemeIcon
-                    size={40}
-                    variant="light"
-                    color="green"
-                    mx="auto"
-                    mb="sm"
-                  >
+                <Card p="md" ta="center" withBorder>
+                  <ThemeIcon size={40} variant="light" mx="auto" mb="sm">
                     <IconUserCheck size={20} />
                   </ThemeIcon>
                   <Text fw={600} mb="xs">
@@ -319,15 +284,9 @@ const ServicesPage = () => {
                 </Card>
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 3 }}>
-                <Card p="md" ta="center" bg="orange.0">
-                  <ThemeIcon
-                    size={40}
-                    variant="light"
-                    color="orange"
-                    mx="auto"
-                    mb="sm"
-                  >
-                    <IconStethoscope size={20} />
+                <Card p="md" ta="center" withBorder>
+                  <ThemeIcon size={40} variant="light" mx="auto" mb="sm">
+                    <IconDental size={20} />
                   </ThemeIcon>
                   <Text fw={600} mb="xs">
                     {t("step_3_title")}
@@ -338,15 +297,9 @@ const ServicesPage = () => {
                 </Card>
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 3 }}>
-                <Card p="md" ta="center" bg="purple.0">
-                  <ThemeIcon
-                    size={40}
-                    variant="light"
-                    color="purple"
-                    mx="auto"
-                    mb="sm"
-                  >
-                    <IconHeart size={20} />
+                <Card p="md" ta="center" withBorder>
+                  <ThemeIcon size={40} variant="light" mx="auto" mb="sm">
+                    <IconFaceId size={20} />
                   </ThemeIcon>
                   <Text fw={600} mb="xs">
                     {t("step_4_title")}
@@ -360,7 +313,7 @@ const ServicesPage = () => {
           </Box>
 
           {/* Call to Action */}
-          <Paper p="xl" bg="blue.6" c="white" ta="center">
+          <Paper p="xl" withBorder ta="center">
             <Stack gap="md" align="center">
               <Title order={3}>{t("cta_title")}</Title>
               <Text size="lg" maw={600}>
@@ -369,20 +322,11 @@ const ServicesPage = () => {
               <Group>
                 <Button
                   size="lg"
-                  variant="white"
-                  color="blue"
                   onClick={() => router.push(`/${currentLang}/appointments`)}
                 >
                   {t("book_appointment")}
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  color="white"
-                  onClick={() => router.push(`/${currentLang}/contact`)}
-                >
-                  {t("contact_us")}
-                </Button>
+                <CallNowButton />
               </Group>
             </Stack>
           </Paper>

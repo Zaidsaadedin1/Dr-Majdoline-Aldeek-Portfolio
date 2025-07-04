@@ -31,7 +31,7 @@ const fadeIn = keyframes({
 
 export default function consultation() {
   const router = useRouter();
-  const { t, i18n } = useTranslation("consultation");
+  const { t, i18n } = useTranslation("appointments");
   const currentLang = i18n.language;
   const isRTL = currentLang === "ar";
   const { user } = useAuth();

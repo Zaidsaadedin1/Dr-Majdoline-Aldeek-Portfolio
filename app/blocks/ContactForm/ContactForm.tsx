@@ -152,7 +152,6 @@ export default function ContactForm() {
           <Button
             type="submit"
             variant="gradient"
-            gradient={{ from: "pink", to: "purple" }}
             fullWidth
             mt="md"
             disabled={loading}
