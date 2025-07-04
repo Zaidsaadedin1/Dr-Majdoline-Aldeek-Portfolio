@@ -31,23 +31,6 @@
   "requests": {
     "title": "طلباتك"
   },
-  "table": {
-    "no_orders": "لا توجد طلبات.",
-    "id": "المعرف",
-    "firstName": "الاسم الأول",
-    "lastName": "اسم العائلة",
-    "email": "البريد الإلكتروني",
-    "phone": "الهاتف",
-    "companyName": "اسم الشركة",
-    "projectType": "نوع المشروع",
-    "serviceType": "نوع الخدمة",
-    "budget": "الميزانية",
-    "timeline": "المدة الزمنية",
-    "projectDescription": "وصف المشروع",
-    "additionalRequirements": "متطلبات إضافية",
-    "termsAccepted": "تم قبول الشروط",
-    "userId": "معرف المستخدم"
-  },
   "genders": {
     "male": "ذكر",
     "female": "أنثى",
@@ -74,5 +57,21 @@
     "submit": "إرسال",
     "reset": "إعادة تعيين",
     "cancel": "إلغاء"
+  },
+  "appointments": {
+    "title": "مواعيدك"
+  },
+  "table": {
+    "preferredDate": "التاريخ المفضل",
+    "preferredTime": "الوقت المفضل",
+    "concerns": "الملاحظات",
+    "status": "الحالة",
+    "no_appointments": "لم يتم العثور على مواعيد"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "confirmed": "تم التأكيد",
+    "completed": "مكتمل",
+    "cancelled": "ملغى"
   }
 }

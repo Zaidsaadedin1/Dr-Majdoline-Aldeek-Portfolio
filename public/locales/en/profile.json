@@ -31,23 +31,6 @@
   "requests": {
     "title": "Your Requests"
   },
-  "table": {
-    "no_orders": "No orders found.",
-    "id": "ID",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "email": "Email",
-    "phone": "Phone",
-    "companyName": "Company Name",
-    "projectType": "Project Type",
-    "serviceType": "Service Type",
-    "budget": "Budget",
-    "timeline": "Timeline",
-    "projectDescription": "Project Description",
-    "additionalRequirements": "Additional Requirements",
-    "termsAccepted": "Terms Accepted",
-    "userId": "User ID"
-  },
   "genders": {
     "male": "Male",
     "female": "Female",
@@ -69,5 +52,21 @@
     "error_title": "Error",
     "profile_updated": "Profile updated successfully",
     "error_updating_profile": "An error occurred while updating the profile"
+  },
+  "appointments": {
+    "title": "Your Appointments"
+  },
+  "table": {
+    "preferredDate": "Preferred Date",
+    "preferredTime": "Preferred Time",
+    "concerns": "Concerns",
+    "status": "Status",
+    "no_appointments": "No appointments found"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
   }
 }
