@@ -471,7 +471,7 @@ export const HomePage = () => {
                   p="xl"
                   h="100%"
                   style={{ cursor: "pointer" }}
-                  onClick={() => router.push(`/${currentLang}/consultation`)}
+                  onClick={() => router.push(`/${currentLang}/appointments`)}
                 >
                   <Group
                     justify="space-between"
