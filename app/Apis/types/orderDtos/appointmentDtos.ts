@@ -1,4 +1,5 @@
 export interface CreateAppointmentDto {
+  userId?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -9,7 +10,6 @@ export interface CreateAppointmentDto {
   concerns: string;
   medicalHistory?: string;
   termsAccepted: boolean;
-  userId?: string;
 }
 
 export interface GetAppointmentDto {

@@ -68,10 +68,11 @@ export default function ConsultationForm() {
 
   const form = useForm({
     initialValues: {
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      email: user?.email || "",
-      phone: user?.phoneNumber || "",
+      userId: user?.id ?? "",
+      firstName: user?.firstName ?? "",
+      lastName: user?.lastName ?? "",
+      email: user?.email ?? "",
+      phone: user?.phoneNumber ?? "",
       serviceType: "",
       preferredDate: "",
       preferredTime: "",
@@ -102,6 +103,7 @@ export default function ConsultationForm() {
   useEffect(() => {
     if (user) {
       form.setValues({
+        userId: user.id ?? "",
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
