@@ -17,15 +17,15 @@ import {
   Paper,
 } from "@mantine/core";
 import {
-  IconStethoscope,
-  IconBrain,
-  IconShield,
-  IconUsers,
+  IconDental,
+  IconFaceId,
   IconAward,
   IconSchool,
   IconCalendar,
   IconMapPin,
   IconHeart,
+  IconShield,
+  IconLinkPlus,
 } from "@tabler/icons-react";
 import { useTranslation } from "next-i18next";
 
@@ -36,19 +36,17 @@ const AboutPage = () => {
   return (
     <Container size="lg" py="xl" dir={isRTL ? "rtl" : "ltr"}>
       {/* Hero Section */}
-      <Paper p="xl" mb="xl" bg="gradient-to-r from-blue-50 to-blue-100">
+      <Paper p="xl" mb="xl" withBorder>
         <Grid>
           <Grid.Col span={{ base: 12, md: 8 }}>
             <Stack gap="md">
               <Group gap="sm">
-                <Avatar size="xl" color="blue">
-                  <IconStethoscope size={40} />
+                <Avatar size="xl">
+                  <IconDental size={40} />
                 </Avatar>
                 <Box>
-                  <Title order={1} c="blue.8">
-                    {t("hero.name")}
-                  </Title>
-                  <Text size="lg" fw={500} c="blue.6">
+                  <Title order={1}>{t("hero.name")}</Title>
+                  <Text size="lg" fw={500}>
                     {t("hero.title")}
                   </Text>
                 </Box>
@@ -59,129 +57,100 @@ const AboutPage = () => {
               </Text>
 
               <Group gap="xs">
-                <Badge
-                  variant="light"
-                  leftSection={<IconBrain size={12} />}
-                  color="blue"
-                >
-                  {t("hero.badges.psychiatry")}
+                <Badge variant="light" leftSection={<IconDental size={12} />}>
+                  {t("hero.badges.cosmetic")}
                 </Badge>
-                <Badge
-                  variant="light"
-                  leftSection={<IconShield size={12} />}
-                  color="green"
-                >
-                  {t("hero.badges.addiction")}
+                <Badge variant="light" leftSection={<IconFaceId size={12} />}>
+                  {t("hero.badges.aesthetic")}
                 </Badge>
-                <Badge
-                  variant="light"
-                  leftSection={<IconUsers size={12} />}
-                  color="orange"
-                >
-                  {t("hero.badges.family")}
+                <Badge variant="light" leftSection={<IconLinkPlus size={12} />}>
+                  {t("hero.badges.restorative")}
                 </Badge>
-                <Badge
-                  variant="light"
-                  leftSection={<IconHeart size={12} />}
-                  color="red"
-                >
-                  {t("hero.badges.crisis")}
+                <Badge variant="light" leftSection={<IconShield size={12} />}>
+                  {t("hero.badges.pediatric")}
                 </Badge>
               </Group>
             </Stack>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 4 }}>
             <Image
-              src="/images/Doctor Omar Asad.jpg"
+              src="/images/dr-majdoline.jpg"
               alt={t("hero.imageAlt")}
               radius="md"
               h={300}
-              fallbackSrc="https://via.placeholder.com/300x300?text=Dr.+Omar+Asad"
+              fallbackSrc="https://via.placeholder.com/300x300?text=Dr.+Majdoline"
             />
           </Grid.Col>
         </Grid>
       </Paper>
 
       {/* Education & Qualifications */}
-      <Card mb="xl" p="xl">
+      <Card mb="xl" p="xl" withBorder>
         <Group gap="sm" mb="lg">
-          <IconSchool size={24} color="var(--mantine-color-blue-6)" />
-          <Title order={2} c="blue.8">
-            {t("education.title")}
-          </Title>
+          <IconSchool size={24} />
+          <Title order={2}>{t("education.title")}</Title>
         </Group>
 
         <Timeline active={4} bulletSize={24} lineWidth={2}>
           <Timeline.Item
             bullet={<IconAward size={16} />}
-            title={t("education.degrees.mbbs.title")}
+            title={t("education.degrees.dds.title")}
           >
             <Text c="dimmed" size="sm">
-              {t("education.degrees.mbbs.institution")}
+              {t("education.degrees.dds.institution")}
             </Text>
           </Timeline.Item>
 
           <Timeline.Item
             bullet={<IconAward size={16} />}
-            title={t("education.degrees.diploma.title")}
+            title={t("education.degrees.cosmetic.title")}
           >
             <Text c="dimmed" size="sm">
-              {t("education.degrees.diploma.institution")}
+              {t("education.degrees.cosmetic.institution")}
             </Text>
           </Timeline.Item>
 
           <Timeline.Item
             bullet={<IconAward size={16} />}
-            title={t("education.degrees.fellowship.title")}
+            title={t("education.degrees.orthodontics.title")}
           >
             <Text c="dimmed" size="sm">
-              {t("education.degrees.fellowship.institution")}
+              {t("education.degrees.orthodontics.institution")}
             </Text>
           </Timeline.Item>
 
           <Timeline.Item
             bullet={<IconAward size={16} />}
-            title={t("education.degrees.cbt.title")}
+            title={t("education.degrees.aesthetics.title")}
           >
             <Text c="dimmed" size="sm">
-              {t("education.degrees.cbt.institution")}
-            </Text>
-          </Timeline.Item>
-
-          <Timeline.Item
-            bullet={<IconAward size={16} />}
-            title={t("education.degrees.phd.title")}
-          >
-            <Text c="dimmed" size="sm">
-              {t("education.degrees.phd.institution")}
+              {t("education.degrees.aesthetics.institution")}
             </Text>
           </Timeline.Item>
         </Timeline>
       </Card>
 
       {/* Professional Experience */}
-      <Card mb="xl" p="xl">
+      <Card mb="xl" p="xl" withBorder>
         <Group gap="sm" mb="lg">
-          <IconCalendar size={24} color="var(--mantine-color-green-6)" />
-          <Title order={2} c="green.8">
-            {t("experience.title")}
-          </Title>
+          <IconCalendar size={24} />
+          <Title order={2}>{t("experience.title")}</Title>
         </Group>
 
         <Stack gap="md">
           <Box>
             <Text fw={600} size="lg">
-              {t("experience.positions.head.title")}
+              {t("experience.positions.owner.title")}
             </Text>
             <Group gap="xs" mb="xs">
               <IconMapPin size={16} />
               <Text c="dimmed">
-                {t("experience.positions.head.institution")}
+                {t("experience.positions.owner.institution")}
               </Text>
-              <Text c="dimmed">{t("experience.positions.head.duration")}</Text>
+              <Text c="dimmed">{t("experience.positions.owner.duration")}</Text>
             </Group>
             <Text size="sm" c="dimmed">
-              {t("experience.positions.head.description")}
+              {t("experience.positions.owner.description")}
             </Text>
           </Box>
 
@@ -189,19 +158,19 @@ const AboutPage = () => {
 
           <Box>
             <Text fw={600} size="lg">
-              {t("experience.positions.consultant.title")}
+              {t("experience.positions.specialist.title")}
             </Text>
             <Group gap="xs" mb="xs">
               <IconMapPin size={16} />
               <Text c="dimmed">
-                {t("experience.positions.consultant.institution")}
+                {t("experience.positions.specialist.institution")}
               </Text>
               <Text c="dimmed">
-                {t("experience.positions.consultant.duration")}
+                {t("experience.positions.specialist.duration")}
               </Text>
             </Group>
             <Text size="sm" c="dimmed">
-              {t("experience.positions.consultant.description")}
+              {t("experience.positions.specialist.description")}
             </Text>
           </Box>
 
@@ -228,67 +197,63 @@ const AboutPage = () => {
       </Card>
 
       {/* Specializations */}
-      <Card mb="xl" p="xl">
+      <Card mb="xl" p="xl" withBorder>
         <Group gap="sm" mb="lg">
-          <IconBrain size={24} color="var(--mantine-color-purple-6)" />
-          <Title order={2} c="purple.8">
-            {t("specializations.title")}
-          </Title>
+          <IconDental size={24} />
+          <Title order={2}>{t("specializations.title")}</Title>
         </Group>
 
         <Grid>
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <List spacing="sm" size="sm" icon={<IconStethoscope size={16} />}>
+            <List spacing="sm" size="sm" icon={<IconDental size={16} />}>
               <List.Item>
                 <Text fw={500}>
-                  {t("specializations.items.moodDisorders.title")}
+                  {t("specializations.items.cosmeticDentistry.title")}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.moodDisorders.description")}
+                  {t("specializations.items.cosmeticDentistry.description")}
                 </Text>
               </List.Item>
               <List.Item>
                 <Text fw={500}>
-                  {t("specializations.items.anxietyDisorders.title")}
+                  {t("specializations.items.dentalBotox.title")}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.anxietyDisorders.description")}
+                  {t("specializations.items.dentalBotox.description")}
                 </Text>
               </List.Item>
               <List.Item>
-                <Text fw={500}>
-                  {t("specializations.items.addictionDisorders.title")}
-                </Text>
+                <Text fw={500}>{t("specializations.items.veneers.title")}</Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.addictionDisorders.description")}
+                  {t("specializations.items.veneers.description")}
                 </Text>
               </List.Item>
             </List>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
-            <List spacing="sm" size="sm" icon={<IconBrain size={16} />}>
+            <List spacing="sm" size="sm" icon={<IconFaceId size={16} />}>
               <List.Item>
                 <Text fw={500}>
-                  {t("specializations.items.psychoticDisorders.title")}
+                  {t("specializations.items.facialAesthetics.title")}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.psychoticDisorders.description")}
+                  {t("specializations.items.facialAesthetics.description")}
                 </Text>
               </List.Item>
               <List.Item>
                 <Text fw={500}>
-                  {t("specializations.items.personalityDisorders.title")}
+                  {t("specializations.items.pediatricDentistry.title")}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.personalityDisorders.description")}
+                  {t("specializations.items.pediatricDentistry.description")}
                 </Text>
               </List.Item>
               <List.Item>
                 <Text fw={500}>
-                  {t("specializations.items.familyTherapy.title")}
+                  {t("specializations.items.orthodontics.title")}
                 </Text>
                 <Text size="xs" c="dimmed">
-                  {t("specializations.items.familyTherapy.description")}
+                  {t("specializations.items.orthodontics.description")}
                 </Text>
               </List.Item>
             </List>
@@ -297,12 +262,10 @@ const AboutPage = () => {
       </Card>
 
       {/* Philosophy & Approach */}
-      <Card p="xl" bg="blue.0">
+      <Card p="xl" withBorder>
         <Group gap="sm" mb="lg">
-          <IconHeart size={24} color="var(--mantine-color-red-6)" />
-          <Title order={2} c="red.8">
-            {t("philosophy.title")}
-          </Title>
+          <IconHeart size={24} />
+          <Title order={2}>{t("philosophy.title")}</Title>
         </Group>
 
         <Text size="md" mb="md">

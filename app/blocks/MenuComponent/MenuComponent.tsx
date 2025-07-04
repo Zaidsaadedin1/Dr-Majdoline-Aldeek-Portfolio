@@ -16,13 +16,16 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { useAuth } from "../../contexts/AuthContext";
 
 const MenuComponent = () => {
-  const isMobileOrTablet = useMediaQuery("(max-width: 1200px)");
   const { t, i18n } = useTranslation("menuComponent");
   const currentLang = i18n.language;
   const isRTL = currentLang === "ar";
 
   const router = useRouter();
   const { isAuthenticated, user, logout } = useAuth();
+
+  const isMobileOrTablet = useMediaQuery("(max-width: 1200px)");
+  const isSmallMobile = useMediaQuery("(max-width: 480px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const renderAuthMenu = () => (
     <Menu>
@@ -136,13 +139,7 @@ const MenuComponent = () => {
             onClick={() => router.push(`/${currentLang}${item.path}`)}
             style={{ flexDirection: isRTL ? "row-reverse" : "row" }}
           >
-            <Group
-              gap={2}
-              wrap="nowrap"
-              style={{ flexDirection: isRTL ? "row-reverse" : "row" }}
-              align="center"
-              justify="center"
-            >
+            <Group align="center">
               <item.icon size={12} />
               <Text size="sm">{item.text}</Text>
             </Group>
@@ -164,26 +161,20 @@ const MenuComponent = () => {
           </Button>
         </Menu.Target>
         <Menu.Dropdown>
-          <Menu.Item onClick={() => router.push(`/${currentLang}/signUp`)}>
-            <Group
-              gap={2}
-              style={{
-                fontFamily: "Oswald, sans-serif",
-                flexDirection: isRTL ? "row-reverse" : "row",
-              }}
-            >
+          <Menu.Item
+            onClick={() => router.push(`/${currentLang}/signUp`)}
+            style={{ direction: isRTL ? "rtl" : "ltr" }}
+          >
+            <Group align="center">
               <IconUser size={12} />
               <Text size="sm">{t("sign_up")}</Text>
             </Group>
           </Menu.Item>
-          <Menu.Item onClick={() => router.push(`/${currentLang}/login`)}>
-            <Group
-              gap={2}
-              style={{
-                fontFamily: "Oswald, sans-serif",
-                flexDirection: isRTL ? "row-reverse" : "row",
-              }}
-            >
+          <Menu.Item
+            onClick={() => router.push(`/${currentLang}/login`)}
+            style={{ direction: isRTL ? "rtl" : "ltr" }}
+          >
+            <Group align="center">
               <IconLogin size={12} />
               <Text size="sm">{t("login")}</Text>
             </Group>
@@ -207,14 +198,7 @@ const MenuComponent = () => {
             flexDirection: isRTL ? "row-reverse" : "row",
           }}
         >
-          <Group
-            gap={2}
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              flexDirection: isRTL ? "row-reverse" : "row",
-            }}
-            align="center"
-          >
+          <Group align="center">
             <IconUser size={12} />
             <Text size="sm">{t("sign_up")}</Text>
           </Group>
@@ -227,15 +211,7 @@ const MenuComponent = () => {
             flexDirection: isRTL ? "row-reverse" : "row",
           }}
         >
-          <Group
-            gap={2}
-            wrap="nowrap"
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              flexDirection: isRTL ? "row-reverse" : "row",
-            }}
-            align="center"
-          >
+          <Group align="center">
             <IconLogin size={12} />
             <Text size="sm">{t("login")}</Text>
           </Group>
@@ -247,42 +223,68 @@ const MenuComponent = () => {
     <Flex
       align="center"
       justify="space-between"
-      mt="xs"
+      mt={isSmallMobile ? "xs" : "sm"}
       direction={isRTL ? "row-reverse" : "row"}
+      style={{
+        padding: isSmallMobile ? "0 8px" : isMobile ? "0 12px" : "0 16px",
+        minHeight: isSmallMobile ? "48px" : isMobile ? "56px" : "64px",
+      }}
     >
       {/* Logo */}
-      <Flex
-        align="center"
-        gap="md"
-        flex={1}
-        justify={isRTL ? "flex-end" : "flex-start"}
-      >
+      {isRTL ? (
+        <Flex
+          align="center"
+          gap={isSmallMobile ? "xs" : "sm"}
+          direction={isRTL ? "row-reverse" : "row"}
+          justify="flex-start"
+          style={{ flexShrink: 0 }}
+        >
+          <LanguageSwitcher />
+          {isAuthenticated ? renderAuthMenu() : renderAccountMenu()}
+          {renderMainMenu()}
+        </Flex>
+      ) : (
+        <Flex
+          align="center"
+          gap={isSmallMobile ? "xs" : "md"}
+          justify={isRTL ? "flex-end" : "flex-start"}
+          dir={isRTL ? "rtl" : "ltr"}
+          style={{ flexShrink: 0 }}
+        >
+          <Image
+            src="/images/transperent-logo.png"
+            alt="Logo"
+            w={70}
+            h={70}
+            style={{ cursor: "pointer" }}
+            onClick={() => router.push(`/${currentLang}/`)}
+          />
+        </Flex>
+      )}
+
+      {/* Right Side Actions */}
+      {isRTL ? (
         <Image
           src="/images/transperent-logo.png"
           alt="Logo"
-          w={50}
-          h={50}
+          w={70}
+          h={70}
           style={{ cursor: "pointer" }}
           onClick={() => router.push(`/${currentLang}/`)}
         />
-      </Flex>
-
-      {/* Main Navigation */}
-      <Flex align="center" gap="md" flex={1} justify="center">
-        {renderMainMenu()}
-      </Flex>
-
-      {/* Right Side Actions */}
-      <Flex
-        flex={1}
-        align="center"
-        gap="sm"
-        direction={isRTL ? "row-reverse" : "row"}
-        justify="flex-end"
-      >
-        {isAuthenticated ? renderAuthMenu() : renderAccountMenu()}
-        <LanguageSwitcher />
-      </Flex>
+      ) : (
+        <Flex
+          align="center"
+          gap={isSmallMobile ? "xs" : "sm"}
+          direction={isRTL ? "row-reverse" : "row"}
+          justify="flex-end"
+          style={{ flexShrink: 0 }}
+        >
+          {renderMainMenu()}
+          {isAuthenticated ? renderAuthMenu() : renderAccountMenu()}
+          <LanguageSwitcher />
+        </Flex>
+      )}
     </Flex>
   );
 };

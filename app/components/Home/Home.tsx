@@ -31,7 +31,6 @@ import {
   IconArrowRight,
   IconArrowLeft,
   IconSun,
-  IconPlayCard,
   IconDental,
   IconFaceId,
   IconFileSmileFilled,
@@ -356,17 +355,9 @@ export const HomePage = () => {
               size="xl"
               variant="white"
               leftSection={<IconCalendar size={24} />}
-              onClick={() => router.push(`/${currentLang}/consultation`)}
+              onClick={() => router.push(`/${currentLang}/appointments`)}
             >
               {t("book_consultation")}
-            </Button>
-            <Button
-              size="xl"
-              variant="outline"
-              color="white"
-              leftSection={<IconPlayCard size={24} />}
-            >
-              {t("watch_intro")}
             </Button>
           </Group>
         </Stack>

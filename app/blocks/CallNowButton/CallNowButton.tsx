@@ -7,9 +7,7 @@ export default function CallNowButton() {
   const [opened, setOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const phoneNumber = "+970 592 599 015"; // Replace with the actual doctor phone number
-  const { t, i18n } = useTranslation("home");
-  const currentLang = i18n.language;
-  const isRTL = currentLang === "ar";
+  const { t } = useTranslation("home");
   const copyToClipboard = () => {
     navigator.clipboard.writeText(phoneNumber);
     setCopied(true);
