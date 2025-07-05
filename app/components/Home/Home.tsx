@@ -92,7 +92,7 @@ export const HomePage = () => {
     const targetStats = {
       clients: 400,
       procedures: 1000,
-      satisfaction: 400,
+      satisfaction: 95,
       years: 5,
     };
 
