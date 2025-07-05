@@ -1,5 +1,5 @@
 export interface CreateAppointmentDto {
-  userId?: string;
+  userId: string | null;
   firstName: string;
   lastName: string;
   email: string;

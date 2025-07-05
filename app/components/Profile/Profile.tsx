@@ -33,24 +33,27 @@ import { useMutation } from "@tanstack/react-query";
 import userController from "../../Apis/controllers/userController";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { GetAppointmentDto } from "../../Apis/types/orderDtos/appointmentDtos";
+import { GetAppointmentDto } from "../../Apis/types/appointmentDtos/appointmentDtos";
+import {
+  AppointmentStatus,
+  statusColors,
+} from "../../Apis/enums/AppointmentStatus";
 
 const Profile = ({ user }: { user: GetUserDto }) => {
-  const { t, i18n } = useTranslation("profile");
+  const { t } = useTranslation("profile");
   const router = useRouter();
   const currentLang = router.locale;
   const isRTL = currentLang === "ar";
   const [userOrders, setUserOrders] = useState<GetAppointmentDto[]>([]);
-  console.log("Current locale:", i18n.language);
-  console.log("Loaded namespaces:", i18n.options.ns);
+
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const res = await appointmentController.GetAllUserAppointmentsAsync(
+        const res = await appointmentController.GetAllUserAppointmentAsync(
           user.id
         );
         if (res) {
-          setUserOrders(res);
+          setUserOrders(res.data ?? []);
         } else {
           setUserOrders([]);
         }
@@ -397,58 +400,66 @@ const Profile = ({ user }: { user: GetUserDto }) => {
                 </Table.Thead>
                 <Table.Tbody>
                   {userOrders.length > 0 ? (
-                    userOrders.map((appointment) => (
-                      <Table.Tr key={appointment.id}>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.id}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.firstName}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.lastName}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.email}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.phone}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.serviceType}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {new Date(
-                            appointment.preferredDate
-                          ).toLocaleDateString()}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.preferredTime}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.concerns}
-                        </Table.Td>
-                        <Table.Td style={{ paddingRight: 16 }}>
-                          {appointment.status ? (
-                            <Badge
-                              color={
-                                appointment.status === "confirmed"
-                                  ? "green"
-                                  : appointment.status === "completed"
-                                  ? "blue"
-                                  : appointment.status === "cancelled"
-                                  ? "red"
-                                  : "yellow"
-                              }
-                            >
-                              {t(`status.${appointment.status}`)}
-                            </Badge>
-                          ) : (
-                            "-"
-                          )}
-                        </Table.Td>
-                      </Table.Tr>
-                    ))
+                    userOrders.map((appointment) => {
+                      // Compute these outside JSX
+                      const statusEnumValue =
+                        appointment.status !== undefined &&
+                        AppointmentStatus[
+                          appointment.status as keyof typeof AppointmentStatus
+                        ]
+                          ? AppointmentStatus[
+                              appointment.status as keyof typeof AppointmentStatus
+                            ]
+                          : "";
+                      const statusKey =
+                        typeof statusEnumValue === "string"
+                          ? statusEnumValue.toLowerCase()
+                          : statusEnumValue?.toString().toLowerCase() || "";
+                      const badgeColor = statusColors[statusKey] || "yellow";
+
+                      return (
+                        <Table.Tr key={appointment.id}>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.id}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.firstName}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.lastName}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.email}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.phone}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.serviceType}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {new Date(
+                              appointment.preferredDate
+                            ).toLocaleDateString()}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.preferredTime}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.concerns}
+                          </Table.Td>
+                          <Table.Td style={{ paddingRight: 16 }}>
+                            {appointment.status !== undefined ? (
+                              <Badge color={badgeColor}>
+                                {t(`status.${statusKey}`)}
+                              </Badge>
+                            ) : (
+                              "-"
+                            )}
+                          </Table.Td>
+                        </Table.Tr>
+                      );
+                    })
                   ) : (
                     <Table.Tr>
                       <Table.Td colSpan={10} style={{ textAlign: "center" }}>

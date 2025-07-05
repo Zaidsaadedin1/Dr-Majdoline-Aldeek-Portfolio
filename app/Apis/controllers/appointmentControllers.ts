@@ -1,5 +1,8 @@
 import axios from "../types/axios";
-import { CreateAppointmentDto } from "../types/orderDtos/appointmentDtos";
+import {
+  CreateAppointmentDto,
+  GetAppointmentDto,
+} from "../types/appointmentDtos/appointmentDtos";
 import { GenericResponse } from "../types/Shared/sharedDtos";
 
 export const appointmentController = {
@@ -12,9 +15,9 @@ export const appointmentController = {
     );
     return response.data;
   },
-  GetAllUserAppointmentsAsync: async (userId: string) => {
-    const response = await axios.get(
-      `/Appointment/GetAllUserAppointmentsAsync/${userId}`
+  GetAllUserAppointmentAsync: async (userId: string) => {
+    const response = await axios.get<GenericResponse<GetAppointmentDto[]>>(
+      `/Appointment/GetAllUserAppointmentAsync/${userId}`
     );
     return response.data;
   },

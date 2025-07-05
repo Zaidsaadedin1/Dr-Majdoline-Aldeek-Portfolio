@@ -68,7 +68,7 @@ export default function ConsultationForm() {
 
   const form = useForm({
     initialValues: {
-      userId: user?.id ?? "",
+      userId: user?.id ?? null,
       firstName: user?.firstName ?? "",
       lastName: user?.lastName ?? "",
       email: user?.email ?? "",
@@ -115,6 +115,7 @@ export default function ConsultationForm() {
   const handleSubmit = async (values: typeof form.values) => {
     try {
       const res = await appointmentController.CreateAppointmentAsync(values);
+      console.log(res);
       if (res.success) {
         showNotification({
           title: t("notifications.success_title"),
