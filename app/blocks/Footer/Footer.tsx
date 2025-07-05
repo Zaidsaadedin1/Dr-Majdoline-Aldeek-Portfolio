@@ -45,7 +45,7 @@ const Footer = () => {
           <Group gap="sm">
             <IconDental size={38} color="#50becc" />
             <Title order={3} c="dark">
-              {t("dr_majdoline_aldee_clinic")}
+              {t("dr_majdoline_aldeek_clinic")}
             </Title>
           </Group>
           <Text size="md" c="dimmed" fw={500}>

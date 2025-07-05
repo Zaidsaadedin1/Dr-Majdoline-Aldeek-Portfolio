@@ -109,12 +109,8 @@ export default function Login() {
     onSuccess: (response) => {
       if (response?.data) {
         showSuccessNotification();
-        setTimeout(() => {
-          router.push(`/${currentLang}/dashboard`);
-          if (response.data !== undefined && response.data !== null) {
-            login(response.data as string);
-          }
-        }, 1000);
+        login(response.data as string);
+        router.push(`${currentLang}/`);
       }
     },
     onError: (error: unknown) => {

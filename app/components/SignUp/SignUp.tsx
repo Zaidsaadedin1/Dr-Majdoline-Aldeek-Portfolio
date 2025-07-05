@@ -71,10 +71,18 @@ const SignUp = () => {
         .min(1, { message: t("validation.last_name_required") }),
       phoneNumber: z
         .string()
-        .min(1, { message: t("validation.phone_required") })
-        .regex(/^\+?[0-9]{10,15}$/, {
+        .nonempty({ message: t("validation.phone_required") })
+        .regex(/^\+?[\d\s\-()]{10,20}$/, {
           message: t("validation.phone_invalid"),
-        }),
+        })
+        .refine(
+          (val) =>
+            val.replace(/\D/g, "").length >= 10 &&
+            val.replace(/\D/g, "").length <= 15,
+          {
+            message: t("validation.phone_invalid"),
+          }
+        ),
       gender: z.string().min(1, { message: t("validation.gender_required") }),
       dateOfBirth: z
         .date({

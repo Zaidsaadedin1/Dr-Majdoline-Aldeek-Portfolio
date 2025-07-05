@@ -5,11 +5,13 @@ export interface DecodedToken {
   username: string;
   id: string;
   email: string;
-  Roles: string;
+  Roles: UserRole[] | undefined;
   exp: number;
   iss: string;
   aud: string;
 }
+
+export type UserRole = "Admin" | "Moderator" | "User";
 
 export const decodeToken = (token: string): DecodedToken | null => {
   try {

@@ -44,26 +44,32 @@ const MenuComponent = () => {
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item
-          onClick={() => router.push(`/${currentLang}/dashboard`)}
-          style={{ direction: isRTL ? "rtl" : "ltr" }}
-          ff="Oswald, sans-serif"
-        >
-          <Group gap={2}>
-            <IconDashboard size={14} />
-            <Text size="sm">{t("doctor_dashboard")}</Text>
-          </Group>
-        </Menu.Item>
-        <Menu.Item
-          onClick={() => router.push(`/${currentLang}/profile`)}
-          style={{ direction: isRTL ? "rtl" : "ltr" }}
-          ff="Oswald, sans-serif"
-        >
-          <Group gap={2} wrap="nowrap">
-            <IconUser size={14} />
-            <Text size="sm">{t("profile")}</Text>
-          </Group>
-        </Menu.Item>
+        {user?.Roles?.includes("Admin") && (
+          <Menu.Item
+            onClick={() => router.push(`/${currentLang}/doctorDashboard`)}
+            style={{ direction: isRTL ? "rtl" : "ltr" }}
+            ff="Oswald, sans-serif"
+          >
+            <Group gap={2}>
+              <IconDashboard size={14} />
+              <Text size="sm">{t("doctor_dashboard")}</Text>
+            </Group>
+          </Menu.Item>
+        )}
+
+        {user?.Roles?.includes("User") && (
+          <Menu.Item
+            onClick={() => router.push(`/${currentLang}/profile`)}
+            style={{ direction: isRTL ? "rtl" : "ltr" }}
+            ff="Oswald, sans-serif"
+          >
+            <Group gap={2} wrap="nowrap">
+              <IconUser size={14} />
+              <Text size="sm">{t("profile")}</Text>
+            </Group>
+          </Menu.Item>
+        )}
+
         <Menu.Item
           onClick={logout}
           style={{ direction: isRTL ? "rtl" : "ltr" }}

@@ -22,7 +22,7 @@ export const userController = {
 
   getAllUsers: async () => {
     const response = await axios.get<GenericResponse<GetUserDto[]>>("/User");
-    return response.data;
+    return response.data.data;
   },
 
   updateUser: async (id: string, updateUserDto: UpdateUserDto) => {

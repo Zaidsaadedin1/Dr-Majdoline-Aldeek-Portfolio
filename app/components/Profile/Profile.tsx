@@ -401,19 +401,14 @@ const Profile = ({ user }: { user: GetUserDto }) => {
                 <Table.Tbody>
                   {userOrders.length > 0 ? (
                     userOrders.map((appointment) => {
-                      // Compute these outside JSX
                       const statusEnumValue =
-                        appointment.status !== undefined &&
                         AppointmentStatus[
-                          appointment.status as keyof typeof AppointmentStatus
-                        ]
-                          ? AppointmentStatus[
-                              appointment.status as keyof typeof AppointmentStatus
-                            ]
-                          : "";
+                          appointment.status as unknown as keyof typeof AppointmentStatus
+                        ];
+
                       const statusKey =
                         typeof statusEnumValue === "string"
-                          ? statusEnumValue.toLowerCase()
+                          ? statusEnumValue
                           : statusEnumValue?.toString().toLowerCase() || "";
                       const badgeColor = statusColors[statusKey] || "yellow";
 
