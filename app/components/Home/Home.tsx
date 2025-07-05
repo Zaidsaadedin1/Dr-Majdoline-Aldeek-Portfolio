@@ -90,10 +90,10 @@ export const HomePage = () => {
 
   useEffect(() => {
     const targetStats = {
-      clients: 3200,
-      procedures: 8500,
-      satisfaction: 99,
-      years: 8,
+      clients: 400,
+      procedures: 1000,
+      satisfaction: 400,
+      years: 5,
     };
 
     const duration = 2000;
